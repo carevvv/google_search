@@ -8,9 +8,10 @@
 
 typedef struct TrieNode {
     struct TrieNode *children[MAX_CHILDREN];
-    int isEndOfWord; // 0 если не конец слова, иначе ID последовательности
+    unsigned isEndOfWord : 1; // Только один бит необходим
+    int sequenceID;           // Может быть изменено на меньший тип, если возможно
 } TrieNode;
-
+    
 
 TrieNode *createTrieNode(void);
 void insert_string(TrieNode *root, const char *key, int sequenceID);
