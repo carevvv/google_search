@@ -2,9 +2,9 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "./headers/map.h"
-#include "./headers/list_str.h"
-#include "./headers/set.h"
+#include "map.h"
+#include "list_str.h"
+#include "set.h"
 
 int
 main(void) {

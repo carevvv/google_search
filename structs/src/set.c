@@ -96,13 +96,13 @@ init_node (SetNode *new, char *elem) {
 
 
 void
-avl_insert(Set *tree, char *elem) {
+set_insert(Set *tree, char *elem) {
     if (tree == NULL) {
         fprintf(stderr, "avl_insert: tree is NULL");
         fflush(stderr);
         exit(1);
     }
-    if (avl_find(tree, elem)) {
+    if (set_find(tree, elem)) {
         printf("Element already exists in the set\n");
         return;
     }
@@ -162,7 +162,7 @@ avl_insert(Set *tree, char *elem) {
 }
 
 int
-avl_find(Set *tree, char *elem) {
+set_find(Set *tree, char *elem) {
     if (tree == NULL) {
         fprintf(stderr, "avl_find: tree is NULL");
         fflush(stderr);
@@ -183,13 +183,13 @@ avl_find(Set *tree, char *elem) {
 }
 
 void
-avl_delete(Set *tree, char *elem) {
+set_delete(Set *tree, char *elem) {
     if (tree == NULL) {
         fprintf(stderr, "avl_erase: tree is NULL");
         fflush(stderr);
         exit(1);
     }
-    if (!avl_find(tree, elem)) {
+    if (!set_find(tree, elem)) {
         printf("element hasn't been found in tree\n");
         return;
     }
@@ -253,21 +253,21 @@ avl_delete(Set *tree, char *elem) {
   }
 
 void
-avl_print_helper(SetNode *node, int level, int indent) {
+set_print_helper(SetNode *node, int level, int indent) {
     if (node == NULL) {
         return;
     }
-    avl_print_helper(node->right, level + 1, indent + 5);
+    set_print_helper(node->right, level + 1, indent + 5);
     //print_spaces(indent);
     printf("%s\n", node->data);
-    avl_print_helper(node->left, level + 1, indent + 5);
+    set_print_helper(node->left, level + 1, indent + 5);
 }
 
 void
-avl_print(Set *tree) {
+set_print(Set *tree) {
     if (tree == NULL || tree->root == NULL) {
         printf("Tree is empty\n");
         return;
     }
-    avl_print_helper(tree->root, 0, 0);
+    set_print_helper(tree->root, 0, 0);
 }

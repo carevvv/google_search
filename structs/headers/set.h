@@ -14,9 +14,9 @@ typedef struct Set{
 } Set;
 
 
-extern void avl_insert(Set *tree, char* elem);
-extern void avl_print(Set *tree);
-extern void avl_erase(Set *tree, char* elem);
-extern int  avl_find (Set *tree, char* elem);
+extern void set_insert(Set *tree, char* elem);
+extern void set_print(Set *tree);
+extern void set_erase(Set *tree, char* elem);
+extern int  set_find (Set *tree, char* elem);
 
 #endif
