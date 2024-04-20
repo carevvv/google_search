@@ -8,7 +8,7 @@
 
 typedef struct TrieNode {
     struct TrieNode *children[MAX_CHILDREN];
-    unsigned isEndOfWord : 1; // Только один бит необходим
+    unsigned int isEndOfWord;
 } TrieNode;
     
 

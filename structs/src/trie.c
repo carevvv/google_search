@@ -3,12 +3,16 @@
 #include <math.h>
 #include "../headers/trie.h"
 
-TrieNode 
+TrieNode
 *createTrieNode(void) {
     TrieNode *newNode = calloc(1, sizeof(TrieNode));
+    if (!newNode) {
+       fprintf(stderr, "Memory allocation failed\n");
+       exit(EXIT_FAILURE);
+    }
+    
     if (newNode) {
-        int i;
-        for (i = 0; i < MAX_CHILDREN; i++)
+        for (int i = 0; i < MAX_CHILDREN; i++)
             newNode->children[i] = NULL;
         newNode->isEndOfWord = 0;
     }
@@ -36,17 +40,15 @@ search_string(TrieNode *root, const char *key) {
     
     while(*key) {
         int index = (unsigned char)(*key);
-        if (node->children[index] == NULL) {
-            return 0; // Строка не найдена, возвращаем 0
+        if (!node->children[index]) {
+            return -1;
         }
         node = node->children[index];
         key++;
     }
-    if (node != NULL && node->isEndOfWord) {
-        return node->isEndOfWord; // Строка найдена, возвращаем ID
-    }
-    return 0; // По умолчанию возвращаем 0, если строка не найдена
+    return node->isEndOfWord; 
 }
+
 
 
 void 
@@ -59,3 +61,4 @@ free_trie(TrieNode *root) {
     }
     free(root);
 }
+
