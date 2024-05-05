@@ -6,8 +6,8 @@ OBJ = searcher.o ../structs/src/map.o ../structs/src/compression.o ../structs/sr
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-a.out: $(OBJ)
+search.out: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS)
 
 clean:
-	rm -f *.o ../structs/src/*.o a.out
+	rm -f *.o ../structs/src/*.o search.out

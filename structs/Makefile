@@ -1,4 +1,4 @@
-TARGET=test
+TARGET=decompress_test
 OBJ=list_str
 OBJ2=map
 OBJ3=set

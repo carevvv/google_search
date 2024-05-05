@@ -6,9 +6,9 @@ OBJ = indexer.o ../structs/src/map.o ../structs/src/compression.o ../structs/src
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-a.out: $(OBJ)
+indexer.out: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS)
 
 clean:
-	rm -f *.o ../structs/src/*.o a.out
+	rm -f *.o ../structs/src/*.o indexer.out
 

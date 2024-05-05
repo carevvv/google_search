@@ -52,8 +52,8 @@ main(int argc, char *argv[]) {
                     if (!finded) {
                         pairs[cnt_of_docs].doc = item_node->data;
                         pairs[cnt_of_docs].count = 1;
-                    }
-                    ++cnt_of_docs;
+                        ++cnt_of_docs;
+                    } 
                     item_node = item_node->next;
                 }
             }
