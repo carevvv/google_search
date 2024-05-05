@@ -42,5 +42,14 @@ int main(int argc, char *argv[]) {
     end = clock();
     cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
     printf("Сжатие завершено за %f секунды. Проверьте файл '%s'.\n", cpu_time_used, output_filename);
+    decompress(output_filename, "decom.txt");
+    for (int i = 0; i < (1 << 16); ++i) {
+        sL2 *copy = &(&table)->arr[i];
+        sL2 *list = &(&table)->arr[i];
+        while (list->head != NULL) {
+            list->head = list->head->next;
+            free(copy->head);
+        }
+    }
     return 0;
 }

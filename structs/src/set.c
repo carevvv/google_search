@@ -103,7 +103,7 @@ set_insert(Set *tree, char *elem) {
         exit(1);
     }
     if (set_find(tree, elem)) {
-        printf("Element already exists in the set\n");
+        //printf("Element already exists in the set\n");
         return;
     }
     if (tree->root == NULL) {

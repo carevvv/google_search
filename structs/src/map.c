@@ -105,6 +105,11 @@ void h_insert(HashMap *table, char *str) {
 
 void init(HashMap *table) {
       //table->arr = calloc (1 << 16, sizeof(table->arr));
+    for (int i = 0; i < (1 << 16); ++i) {
+        table->arr[i].head = NULL;
+        table->arr[i].tail = NULL;
+        table->arr[i].size = 0;
+    }
     table->hash = MurmurHash;
 }
 
