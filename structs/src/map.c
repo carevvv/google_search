@@ -98,7 +98,7 @@ void h_insert(HashMap *table, char *str) {
         }
         list->size++;
     } else {
-        printf("Element '%s' already exists\n", str);
+        //printf("Element '%s' already exists\n", str);
     }
 }
 
@@ -146,9 +146,9 @@ insert_item(HashMap *table, char* item, char* key) {
     if (elem != NULL) {
         if (sl2_find(elem->item_list->head, item) == -1) {
             sl2_push_back(elem->item_list, item);
-            printf("Item '%s' inserted for key '%s'\n", item, key);
+            //printf("Item '%s' inserted for key '%s'\n", item, key);
         } else {
-            printf("Item '%s' already exists for key '%s'\n", item, key);
+            //printf("Item '%s' already exists for key '%s'\n", item, key);
         }
     } else {
         elem = malloc(sizeof(sL2Node));
@@ -172,7 +172,7 @@ insert_item(HashMap *table, char* item, char* key) {
         h_insert(table, key);
         elem = h_find(table, key);
         sl2_push_back(elem->item_list, item);
-        printf("Item '%s' inserted for key '%s'\n", item, key);
+        //printf("Item '%s' inserted for key '%s'\n", item, key);
     }
 }
 
@@ -184,12 +184,12 @@ erase_item(HashMap *table, char* item, char* key ) {
         int item_pos = sl2_find(elem->item_list->head, item);
         if (item_pos != -1) {
             sl2_erase(elem->item_list, item_pos);
-            printf("Item '%s' erased for key '%s'\n", item, key);
+            //printf("Item '%s' erased for key '%s'\n", item, key);
         } else {
-            printf("Item '%s' does not exist for key '%s'\n", item, key);
+            //printf("Item '%s' does not exist for key '%s'\n", item, key);
         }
     } else {
-        printf("Key '%s' does not exist in the hash table\n", key);
+        //printf("Key '%s' does not exist in the hash table\n", key);
     }
 }
 
@@ -199,7 +199,7 @@ sL2* find_array(HashMap *table, char* key) {
     if (elem != NULL) {
         return elem->item_list;
     } else {
-        printf("Key '%s' not found in the hash table\n", key);
+        //printf("Key '%s' not found in the hash table\n", key);
         return NULL;
     }
 }
