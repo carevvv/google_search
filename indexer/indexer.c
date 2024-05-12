@@ -17,7 +17,6 @@ int main(int argc, char *argv[]) {
     clock_t start, end;
     double cpu_time_used;
     start = clock();
-
     HashMap table;
     init(&table);
     char *input_filename = NULL;
@@ -25,6 +24,7 @@ int main(int argc, char *argv[]) {
     for (int i = 1; i < argc; ++i) {
         input_filename = argv[i];
         input = fopen(input_filename, "r");
+        printf("Файл '%s' открыт.\n", input_filename);
         if (input == NULL) {
             fprintf(stderr, "error with file %s\n", input_filename);
             fflush(stderr);
