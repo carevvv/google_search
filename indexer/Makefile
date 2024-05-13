@@ -11,4 +11,5 @@ indexer.out: $(OBJ)
 
 clean:
 	rm -f *.o ../structs/src/*.o indexer.out
+	rm output.txt
 
