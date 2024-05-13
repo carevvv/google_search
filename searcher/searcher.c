@@ -33,7 +33,7 @@ main(int argc, char *argv[]) {
     char *word = calloc(MAX_LEN, sizeof(*word));
     char *string = calloc(STRING_LEN, sizeof(*string));
     sL2Node *node;
-    sL2Node *item_node;
+    TempL2Node *item_node;
     Pair *pairs = calloc(STRING_LEN, sizeof(*pairs));
     int cnt_of_docs = 0;
     int cnt_of_words = 0;

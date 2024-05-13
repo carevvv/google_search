@@ -1,22 +1,24 @@
-#ifndef LIST_H
-#define LIST_H
+#ifndef LIST_STR_H
+#define LIST_STR_H
+
+#include "temp_list.h"
 
 typedef char* T;
-typedef struct sL2 sL2;
 
 typedef struct sL2Node {
     char* data;
     struct sL2Node *prev;
     struct sL2Node *next;
-    sL2 *item_list;
+    TempL2 *item_list;
 } sL2Node;
 
 
-struct sL2 {
+typedef struct sL2 {
     sL2Node *head;
     sL2Node *tail;
-    unsigned long int size;
-};
+    int size;
+} sL2;
+
 
 
 extern void sl2_push_back(sL2 *list, char* elem);

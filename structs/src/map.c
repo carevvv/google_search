@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "list_str.h"
+#include "temp_list.h"
 #include "map.h"
 
 unsigned short MurmurHash(char* key, unsigned long len) {
@@ -49,12 +50,13 @@ unsigned short MurmurHash(char* key, unsigned long len) {
       return h % (1 << 16);
   }
 
-sL2Node* h_find(HashMap *table, char *str) {
+sL2Node* 
+h_find(HashMap *table, char *str) {
         unsigned short index = table->hash(str, strlen(str));
         sL2 *list = &(table->arr[index]);
         sL2Node* current = list->head;
         sL2Node* prev = NULL;
-         while (current != NULL) {
+        while (current != NULL) {
             if (strcmp(current->data, str) == 0) {
                 return current;
             }
@@ -62,14 +64,15 @@ sL2Node* h_find(HashMap *table, char *str) {
             current = current->next;
         }
         return NULL;
-    }
+}
 
-void h_insert(HashMap *table, char *str) {
+void 
+h_insert(HashMap *table, char *str) {
     unsigned short index = table->hash(str, strlen(str));
     sL2* list = &table->arr[index];
 
     if (h_find(table, str) == NULL) {
-        sL2Node* new_node = malloc(sizeof(sL2Node));
+        sL2Node* new_node = calloc(1, sizeof(sL2Node));
         if (new_node == NULL) {
             fprintf(stderr, "Memory allocation failed\n");
             exit(1);
@@ -79,7 +82,7 @@ void h_insert(HashMap *table, char *str) {
             fprintf(stderr, "Memory allocation failed\n");
             exit(1);
         }
-        new_node->item_list = malloc(sizeof(sL2));
+        new_node->item_list = calloc(1, sizeof(sL2));
         if (new_node->item_list == NULL) {
             fprintf(stderr, "Memory allocation failed\n");
             exit(1);
@@ -98,7 +101,7 @@ void h_insert(HashMap *table, char *str) {
         }
         list->size++;
     } else {
-        //printf("Element '%s' already exists\n", str);
+        printf("Element '%s' already exists\n", str);
     }
 }
 
@@ -144,14 +147,14 @@ insert_item(HashMap *table, char* item, char* key) {
     sL2Node* elem = h_find(table, key);
 
     if (elem != NULL) {
-        if (sl2_find(elem->item_list->head, item) == -1) {
-            sl2_push_back(elem->item_list, item);
-            //printf("Item '%s' inserted for key '%s'\n", item, key);
+        if (temp_find(elem->item_list->head, item) == -1) {
+            temp_push_back(elem->item_list, item);
+            printf("Item '%s' inserted for key '%s'\n", item, key);
         } else {
-            //printf("Item '%s' already exists for key '%s'\n", item, key);
+            printf("Item '%s' already exists for key '%s'\n", item, key);
         }
     } else {
-        elem = malloc(sizeof(sL2Node));
+        elem = calloc(1, sizeof(sL2Node));
         if (elem == NULL) {
             fprintf(stderr, "Memory allocation failed\n");
             exit(1);
@@ -161,7 +164,7 @@ insert_item(HashMap *table, char* item, char* key) {
             fprintf(stderr, "Memory allocation failed\n");
             exit(1);
         }
-        elem->item_list = malloc(sizeof(sL2));
+        elem->item_list = calloc(1, sizeof(sL2));
         if (elem->item_list == NULL) {
             fprintf(stderr, "Memory allocation failed\n");
             exit(1);
@@ -171,8 +174,8 @@ insert_item(HashMap *table, char* item, char* key) {
         elem->item_list->size = 0;
         h_insert(table, key);
         elem = h_find(table, key);
-        sl2_push_back(elem->item_list, item);
-        //printf("Item '%s' inserted for key '%s'\n", item, key);
+        temp_push_back(elem->item_list, item);
+        printf("Item '%s' inserted for key '%s'\n", item, key);
     }
 }
 
@@ -181,25 +184,25 @@ erase_item(HashMap *table, char* item, char* key ) {
     sL2Node* elem = h_find(table, key);
     
     if (elem != NULL) {
-        int item_pos = sl2_find(elem->item_list->head, item);
+        int item_pos = temp_find(elem->item_list->head, item);
         if (item_pos != -1) {
-            sl2_erase(elem->item_list, item_pos);
-            //printf("Item '%s' erased for key '%s'\n", item, key);
+            temp_erase(elem->item_list, item_pos);
+            printf("Item '%s' erased for key '%s'\n", item, key);
         } else {
-            //printf("Item '%s' does not exist for key '%s'\n", item, key);
+            printf("Item '%s' does not exist for key '%s'\n", item, key);
         }
     } else {
-        //printf("Key '%s' does not exist in the hash table\n", key);
+        printf("Key '%s' does not exist in the hash table\n", key);
     }
 }
 
-sL2* find_array(HashMap *table, char* key) {
+TempL2* find_array(HashMap *table, char* key) {
     sL2Node* elem = h_find(table, key);
 
     if (elem != NULL) {
         return elem->item_list;
     } else {
-        //printf("Key '%s' not found in the hash table\n", key);
+        printf("Key '%s' not found in the hash table\n", key);
         return NULL;
     }
 }

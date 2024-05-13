@@ -3,17 +3,15 @@
 #include <string.h>
 
 #include "temp_list.h"
-#include "list_str.h"
-
 
 enum {
       SIZE = 10000
   };
 
-  void
-  sl2_push_front(sL2 *list, char *elem) {
+void
+temp_push_front(TempL2 *list, char *elem) {
       if (list == NULL) {
-          fprintf(stderr, "l2_push_front: list is NULL");
+          fprintf(stderr, "t_push_front: list is NULL");
           fflush(stderr);
           exit(1);
       }
@@ -34,10 +32,10 @@ enum {
       }
   }
 
-  void
-  sl2_push_back(sL2 *list, char *elem) {
+void
+temp_push_back(TempL2 *list, char *elem) {
       if (list == NULL) {
-          fprintf(stderr, "l2_push_back: list is NULL");
+          fprintf(stderr, "t_push_back: list is NULL");
           fflush(stderr);
           exit(1);
       }
@@ -58,15 +56,15 @@ enum {
       }
   }
 
- void
-sl2_print(sL2 *list) {
+void
+temp_print(TempL2 *list) {
     if (list == NULL) {
-        fprintf(stderr, "sl2_find: list is NULL");
+        fprintf(stderr, "t_find: list is NULL");
         fflush(stderr);
         exit(1);
     }
     
-      sL2Node *node = list->head;
+      TempL2Node *node = list->head;
       while (node != NULL) {
           printf("%s ", node->data);
           node = node->next;
@@ -74,39 +72,39 @@ sl2_print(sL2 *list) {
       printf("\n");
   }
 
-  void
-  sl2_insert(sL2 *list, char *elem, int pos) {
+void
+temp_insert(TempL2 *list, char *elem, int pos) {
       if (pos < 0 || list == NULL || pos > list->size) {
-          fprintf(stderr, "l2_insert error\n");
+          fprintf(stderr, "t_insert error\n");
           fflush(stderr);
           exit(1);
       }
       if (pos == list->size) {
-          sl2_push_back(list, elem);
+          temp_push_back(list, elem);
           return;
       } else if (pos == 0) {
-          sl2_push_front(list, elem);
+          temp_push_front(list, elem);
           return;
       }
       if (pos <= list->size / 2) {
-          sL2Node *node = list->head;
+          TempL2Node *node = list->head;
           for (int i = 0; i < pos - 1; ++i) {
               node = node->next;
           }
-          sL2Node *new_node = calloc(1, sizeof(*new_node));
+          TempL2Node *new_node = calloc(1, sizeof(*new_node));
           new_node->data = elem;
-          sL2Node *temp = node->next;
+          TempL2Node *temp = node->next;
           node->next = new_node;
           new_node->next = temp;
           new_node->prev = node;
       } else {
-          sL2Node *node = list->tail;
+          TempL2Node *node = list->tail;
           for (int i = list->size - 1; i >= pos; --i) {
               node = node->prev;
           }
-          sL2Node *new = calloc(1, sizeof(*new));
+          TempL2Node *new = calloc(1, sizeof(*new));
           new->data = elem;
-          sL2Node *temp = node->next;
+          TempL2Node *temp = node->next;
           node->next = new;
           new->next = temp;
           new->prev = node;
@@ -115,21 +113,21 @@ sl2_print(sL2 *list) {
   }
 
 void
-sl2_erase(sL2 *list, int pos) {
+temp_erase(TempL2 *list, int pos) {
     if (pos < 0 || list == NULL || pos >= list->size || list->size == 0) {
         fprintf(stderr, "l2s_erase error\n");
         fflush(stderr);
         exit(1);
     }
     if (pos == 0) {
-        sL2Node *node = list->head;
+        TempL2Node *node = list->head;
         list->head = list->head->next;
         list->head->prev = NULL;
         free(node);
         list->size--;
         return;
     } else if (pos == list->size - 1) {
-        sL2Node *node = list->tail;
+        TempL2Node *node = list->tail;
         list->tail = list->tail->prev;
         list->tail->next = NULL;
         list->size--;
@@ -137,11 +135,11 @@ sl2_erase(sL2 *list, int pos) {
         return;
     }
 
-    sL2Node *node = list->head;
+    TempL2Node *node = list->head;
     for (int i = 0; i < pos - 1; ++i) {
         node = node->next;
     }
-    sL2Node *del_node = node->next;
+    TempL2Node *del_node = node->next;
     node->next = node->next->next;
     node->next->prev = node;
     list->size--;
@@ -149,8 +147,8 @@ sl2_erase(sL2 *list, int pos) {
 }
 
 void
-sl2_update(sL2 *list,char* elem, int pos) {
-    sL2Node *copy = list->head;
+temp_update(TempL2 *list,char* elem, int pos) {
+    TempL2Node *copy = list->head;
     if (pos < 0 || list->head == NULL || pos >= list->size) {
         fprintf(stderr, "l2_update pos error\n");
         fflush(stderr);
@@ -168,14 +166,14 @@ sl2_update(sL2 *list,char* elem, int pos) {
 }
 
 int
-sl2_find(sL2Node *list, char *elem) {
+temp_find(TempL2Node *list, char *elem) {
       if (list == NULL) {
           fprintf(stderr, "l2_find error\n");
           fflush(stderr);
           exit(1);
       }
       int pos = 0;
-      sL2Node *node = list;
+      TempL2Node *node = list;
       while (node != NULL) {
           if (strcmp(node->data, elem) == 0) {
               return pos;
@@ -187,8 +185,8 @@ sl2_find(sL2Node *list, char *elem) {
   }
 
 void
-sl2_free(sL2 *list) {
-    sL2 *copy = list;
+temp_free(TempL2 *list) {
+    TempL2 *copy = list;
     while (1) {
         if (list->head == NULL) {
             break;
@@ -199,13 +197,13 @@ sl2_free(sL2 *list) {
 }
 
 char*
-sl2_get(sL2 *list, int pos) {
+temp_get(TempL2 *list, int pos) {
     if (pos == 0 || list == NULL || pos >= list->size) {
-        fprintf(stderr, "l2_get err\n");
+        fprintf(stderr, "t_get err\n");
         fflush(stderr);
         exit(1);
     }
-    sL2Node *node = list->head;
+    TempL2Node *node = list->head;
     for (int i = 0; i < pos; ++i) {
         node = node->next;
     }

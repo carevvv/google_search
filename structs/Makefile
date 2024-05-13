@@ -4,6 +4,7 @@ OBJ2=map
 OBJ3=set
 OBJ4=trie
 OBJ5=compression
+OBJ6=temp_list
 CC=gcc
 MAINDIR=./
 SRCDIR=./src/
@@ -18,20 +19,27 @@ $(TARGET).out: $(TARGET).o \
 	$(BINDIR)lib$(OBJ2).so \
 	$(BINDIR)lib$(OBJ3).so \
 	$(BINDIR)lib$(OBJ4).so \
-	$(BINDIR)lib$(OBJ5).so
-	$(CC) $< -L$(BINDIR) -o $@ -l$(OBJ) -l$(OBJ2) -l$(OBJ3) -l$(OBJ4) -l$(OBJ5)
+	$(BINDIR)lib$(OBJ5).so \
+	$(BINDIR)lib$(OBJ6).so 
+	$(CC) $< -L$(BINDIR) -o $@ -l$(OBJ) -l$(OBJ2) -l$(OBJ3) -l$(OBJ4) -l$(OBJ5) -l$(OBJ6)
 
 $(TARGET).o: $(MAINDIR)$(TARGET).c
 	$(CC) -c $< -o $@ $(FLAGS)
 
 # string list
-$(BINDIR)lib$(OBJ).so: $(SRCDIR)$(OBJ).c 
+$(BINDIR)lib$(OBJ).so: $(SRCDIR)$(OBJ).c $(SRCDIR)$(OBJ6).c
 	$(CC) -c --shared $< -o $@ $(FLAGS)
 
 $(SRCDIR)$(OBJ).c: $(HEADDIR)$(OBJ).h
 
+# temp_list
+$(BINDIR)lib$(OBJ6).so: $(SRCDIR)$(OBJ6).c
+		$(CC) -c --shared $< -o $@ $(FLAGS)
+
+$(SRCDIR)$(OBJ6).c: $(HEADDIR)$(OBJ6).h
+
 # map
-$(BINDIR)lib$(OBJ2).so: $(SRCDIR)$(OBJ2).c $(SRCDIR)$(OBJ).c
+$(BINDIR)lib$(OBJ2).so: $(SRCDIR)$(OBJ2).c $(SRCDIR)$(OBJ).c $(SRCDIR)$(OBJ6).c
 	$(CC) -c --shared $< -o $@ $(FLAGS)
 
 $(SRCDIR)$(OBJ2).c: $(HEADDIR)$(OBJ2).h $(HEADDIR)$(OBJ).h
