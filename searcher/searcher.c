@@ -81,7 +81,7 @@ main(int argc, char *argv[]) {
 
     cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
 
-    printf("Работа завршена за %f секунды.\n", cpu_time_used);
+    printf("Работа завершена за %f секунды.\n", cpu_time_used);
     
 
     free(pairs);
