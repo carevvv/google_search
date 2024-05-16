@@ -101,7 +101,7 @@ h_insert(HashMap *table, char *str) {
         }
         list->size++;
     } else {
-        printf("Element '%s' already exists\n", str);
+        //("Element '%s' already exists\n", str);
     }
 }
 
@@ -149,24 +149,24 @@ insert_item(HashMap *table, char* item, char* key) {
     if (elem != NULL) {
         if (temp_find(elem->item_list->head, item) == -1) {
             temp_push_back(elem->item_list, item);
-            printf("Item '%s' inserted for key '%s'\n", item, key);
+            //("Item '%s' inserted for key '%s'\n", item, key);
         } else {
-            printf("Item '%s' already exists for key '%s'\n", item, key);
+            //("Item '%s' already exists for key '%s'\n", item, key);
         }
     } else {
         elem = calloc(1, sizeof(sL2Node));
         if (elem == NULL) {
-            fprintf(stderr, "Memory allocation failed\n");
+            //(stderr, "Memory allocation failed\n");
             exit(1);
         }
         elem->data = strdup(key);
         if (elem->data == NULL) {
-            fprintf(stderr, "Memory allocation failed\n");
+            //(stderr, "Memory allocation failed\n");
             exit(1);
         }
         elem->item_list = calloc(1, sizeof(sL2));
         if (elem->item_list == NULL) {
-            fprintf(stderr, "Memory allocation failed\n");
+            //(stderr, "Memory allocation failed\n");
             exit(1);
         }
         elem->item_list->head = NULL;
@@ -175,7 +175,7 @@ insert_item(HashMap *table, char* item, char* key) {
         h_insert(table, key);
         elem = h_find(table, key);
         temp_push_back(elem->item_list, item);
-        printf("Item '%s' inserted for key '%s'\n", item, key);
+        //("Item '%s' inserted for key '%s'\n", item, key);
     }
 }
 
@@ -187,12 +187,12 @@ erase_item(HashMap *table, char* item, char* key ) {
         int item_pos = temp_find(elem->item_list->head, item);
         if (item_pos != -1) {
             temp_erase(elem->item_list, item_pos);
-            printf("Item '%s' erased for key '%s'\n", item, key);
+            //("Item '%s' erased for key '%s'\n", item, key);
         } else {
-            printf("Item '%s' does not exist for key '%s'\n", item, key);
+            //("Item '%s' does not exist for key '%s'\n", item, key);
         }
     } else {
-        printf("Key '%s' does not exist in the hash table\n", key);
+        //("Key '%s' does not exist in the hash table\n", key);
     }
 }
 
@@ -202,7 +202,7 @@ TempL2* find_array(HashMap *table, char* key) {
     if (elem != NULL) {
         return elem->item_list;
     } else {
-        printf("Key '%s' not found in the hash table\n", key);
+        //("Key '%s' not found in the hash table\n", key);
         return NULL;
     }
 }
